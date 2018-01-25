@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Game/World/Terrain/Tiles/TerrainOpenTile.png" type="Texture" id=1]
+[ext_resource path="res://Game/World/Terrain/Tiles/TerrainBlockedTile.png" type="Texture" id=2]
+[ext_resource path="res://Game/World/Terrain/Tiles/TerrainBorderTile.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 25, 25 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 25, 25 )
+
+[node name="TerrainTileSet" type="Node2D" index="0"]
+
+[node name="TerrainOpenTile" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 1 )
+
+[node name="TerrainBlockedTile" type="Sprite" parent="." index="1"]
+
+texture = ExtResource( 2 )
+
+[node name="Collider" type="StaticBody2D" parent="TerrainBlockedTile" index="0"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 3
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="TerrainBlockedTile/Collider" index="0"]
+
+shape = SubResource( 1 )
+
+[node name="TerrainBorderTile" type="Sprite" parent="." index="2"]
+
+texture = ExtResource( 3 )
+
+[node name="Collider" type="StaticBody2D" parent="TerrainBorderTile" index="0"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 3
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="TerrainBorderTile/Collider" index="0"]
+
+shape = SubResource( 2 )
+
+
