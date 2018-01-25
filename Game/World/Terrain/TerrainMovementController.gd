@@ -4,7 +4,6 @@ extends TextureButton
 const ZOOM_FACTOR = 0.1
 const MIN_ZOOM = 0.5
 const MAX_ZOOM = 2.0
-
 const MAP_START_POSITION = Vector2(1280/2, 720/2 - 25)
 
 enum Zoom {
@@ -22,8 +21,8 @@ func _ready():
 	_reset_map()
 
 func _process(delta):
-	map.position = _lerp_vector(map.position, target_position, 0.1)
-	map.scale = _lerp_vector(map.scale, target_scale, 0.1)
+	map.position = _lerp_vector(map.position, target_position, 0.2)
+	map.scale = _lerp_vector(map.scale, target_scale, 0.2)
 
 func _begin_pan():
 	is_panning = true

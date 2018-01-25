@@ -22,11 +22,14 @@ window/size/resizable=false
 
 [layer_names]
 
-2d_physics/layer_1="PlayerToEnemy"
-2d_physics/layer_2="EnemyToPlayer"
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Terrain"
+2d_physics/layer_4="Sight"
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=1
+quality/intended_usage/framebuffer_allocation.mobile=0
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

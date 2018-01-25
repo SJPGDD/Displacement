@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Game/Units/Unit.gd" type="Script" id=1]
+[ext_resource path="res://Game/World/Terrain/Tiles/TerrainBorderTile.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 5, 5 )
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 150.0
+
+[node name="Unit" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 0
+collision_mask = 7
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "collision" ]
+starting_health = 100
+movement_speed = 100
+attack_range = 50
+attack_cooldown = 5.0
+attack_damage = 10
+crit_chance = 0.1
+spawn_time = 5
+spawn_count = 5
+sight_range = null
+controller = null
+direction = null
+
+[node name="Texture" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( -5, -5, 10, 10 )
+_sections_unfolded = [ "Animation", "Offset", "Region" ]
+
+[node name="Collider" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+
+[node name="SightRadius" type="Area2D" parent="." index="2"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 8
+collision_mask = 3
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Collider" type="CollisionShape2D" parent="SightRadius" index="0"]
+
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[connection signal="body_entered" from="SightRadius" to="." method="_spotted_opposing_unit"]
+
+
