@@ -15,9 +15,15 @@ enum Zoom {
 onready var map = get_parent()
 
 var is_panning = false
+var target_position = MAP_START_POSITION
+var target_scale = Vector2(1, 1)
 
 func _ready():
 	_reset_map()
+
+func _process(delta):
+	map.position = _lerp_vector(map.position, target_position, 0.1)
+	map.scale = _lerp_vector(map.scale, target_scale, 0.1)
 
 func _begin_pan():
 	is_panning = true
@@ -25,16 +31,20 @@ func _begin_pan():
 func _end_pan():
 	is_panning = false
 
-func _pan_map(displacement, scale):
-	map.position += displacement
+func _pan_map(displacement):
+	target_position += displacement
 
 func _zoom_map(direction):
-	map.scale.x = clamp(map.scale.x + ZOOM_FACTOR * direction, MIN_ZOOM, MAX_ZOOM)
-	map.scale.y = clamp(map.scale.y + ZOOM_FACTOR * direction, MIN_ZOOM, MAX_ZOOM)
+	target_scale = Vector2(1, 1) * clamp(
+		target_scale.x + ZOOM_FACTOR * direction, MIN_ZOOM, MAX_ZOOM
+	)
 
 func _reset_map():
 	map.position = MAP_START_POSITION
 	map.scale = Vector2(1, 1)
+
+func _lerp_vector(from, to, factor):
+	return Vector2(lerp(from.x, to.x, factor), lerp(from.y, to.y, factor))
 
 func _input(event):
 	match event.get_class():
@@ -47,4 +57,4 @@ func _input(event):
 				_reset_map()
 		"InputEventMouseMotion":
 			if is_panning:
-				_pan_map(event.relative, get_parent().scale)
+				_pan_map(event.relative)
