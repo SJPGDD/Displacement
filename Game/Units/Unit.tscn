@@ -13,7 +13,7 @@ extents = Vector2( 5, 5 )
 custom_solver_bias = 0.0
 radius = 150.0
 
-[node name="Unit" type="KinematicBody2D"]
+[node name="Unit" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 0
@@ -63,5 +63,7 @@ shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [connection signal="body_entered" from="SightRadius" to="." method="_spotted_opposing_unit"]
+
+[connection signal="body_exited" from="SightRadius" to="." method="_unspotted_opposing_unit"]
 
 

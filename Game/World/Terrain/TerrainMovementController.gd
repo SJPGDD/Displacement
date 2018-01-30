@@ -1,4 +1,3 @@
-tool
 extends TextureButton
 
 const ZOOM_FACTOR = 0.1
