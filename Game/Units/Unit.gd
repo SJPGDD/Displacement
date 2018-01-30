@@ -22,7 +22,7 @@ export(Vector2) var direction
 
 var health = starting_health
 var unit_state = UnitState.MARCHING
-var target_unit
+var target_units = []
 
 func _ready():
 	_configure_colliders()
@@ -47,9 +47,11 @@ func _configure_colliders():
 	$SightRadius.set_collision_mask_bit(controller, false)
 	sight_range = $SightRadius/Collider.shape.radius
 
+func _get_target_unit():
+	return
+
 func _spotted_opposing_unit(unit):
-	if target_unit == null or _range(unit) < _range(target_unit):
-		target_unit = unit
+	target_units.append(unit)
 	unit_state = UnitState.SEEKING
 
 func _direction(unit):

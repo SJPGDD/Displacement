@@ -39,8 +39,8 @@ func _zoom_map(direction):
 	)
 
 func _reset_map():
-	map.position = MAP_START_POSITION
-	map.scale = Vector2(1, 1)
+	target_position = MAP_START_POSITION
+	target_scale = Vector2(1, 1)
 
 func _lerp_vector(from, to, factor):
 	return Vector2(lerp(from.x, to.x, factor), lerp(from.y, to.y, factor))

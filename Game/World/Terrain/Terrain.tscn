@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Game/World/Terrain/Tiles/TerrainTileSet.tres" type="TileSet" id=1]
-[ext_resource path="res://Game/Units/Unit.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Game/World/Terrain/TerrainMovementController.gd" type="Script" id=3]
+[ext_resource path="res://Game/World/Terrain/TerrainMovementController.gd" type="Script" id=2]
 
 [node name="Terrain" type="TileMap" index="0"]
 
@@ -33,19 +32,7 @@ __meta__ = {
 
 [node name="PlayerUnits" type="Node2D" parent="." index="1"]
 
-[node name="Unit" parent="PlayerUnits" index="0" instance=ExtResource( 2 )]
-
-position = Vector2( -141.901, -20.357 )
-controller = 0
-direction = Vector2( 1, 0 )
-
 [node name="EnemyUnits" type="Node2D" parent="." index="2"]
-
-[node name="Unit" parent="EnemyUnits" index="0" instance=ExtResource( 2 )]
-
-position = Vector2( 122.662, 52.9553 )
-controller = 1
-direction = Vector2( -1, 0 )
 
 [node name="MovementController" type="TextureButton" parent="." index="3"]
 
@@ -67,7 +54,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Theme", "Visibility", "custom_styles" ]
 __meta__ = {
 "_edit_lock_": true

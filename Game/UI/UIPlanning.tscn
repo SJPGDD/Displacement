@@ -1,0 +1,37 @@
+[gd_scene format=2]
+
+[node name="AnimatedSprite" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="." index="0"]
+
+polygon = PoolVector2Array( 0, 0, 1280, 0, 1280, 25, 1070, 25, 1045, 50, 235, 50, 210, 25, 0, 25 )
+uv = PoolVector2Array(  )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+
+[node name="Polygon2D2" type="Polygon2D" parent="." index="1"]
+
+position = Vector2( 0, 570 )
+polygon = PoolVector2Array( 0, 150, 1280, 150, 1280, 50, 1070, 50, 1045, 25, 235, 25, 210, 50, 0, 50 )
+uv = PoolVector2Array(  )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Transform" ]
+
+
