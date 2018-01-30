@@ -1,7 +1,31 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Game/Units/Unit.gd" type="Script" id=1]
 [ext_resource path="res://Game/World/Terrain/Tiles/TerrainBorderTile.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=3]
+
+code = "shader_type canvas_item;
+
+uniform vec4 modulate;
+
+bool should_team_color(vec4 source) {
+	return source.r == source.g && source.g == source.b;
+}
+
+void fragment() {
+	vec4 tex_color = texture(TEXTURE, UV);
+	if(should_team_color(tex_color)) {
+		tex_color *= modulate;
+	}
+	COLOR = tex_color;
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+
+render_priority = 0
+shader = SubResource( 3 )
+shader_param/modulate = null
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -13,7 +37,7 @@ extents = Vector2( 5, 5 )
 custom_solver_bias = 0.0
 radius = 150.0
 
-[node name="Unit" type="KinematicBody2D"]
+[node name="Unit" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 0
@@ -35,10 +59,11 @@ direction = null
 
 [node name="Texture" type="Sprite" parent="." index="0"]
 
+material = SubResource( 4 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( -5, -5, 10, 10 )
-_sections_unfolded = [ "Animation", "Offset", "Region" ]
+_sections_unfolded = [ "Animation", "Material", "Offset", "Region" ]
 
 [node name="Collider" type="CollisionShape2D" parent="." index="1"]
 
