@@ -39,7 +39,7 @@ func _configure_colliders():
 	sight_range = $SightRadius/Collider.shape.radius
 
 func _refresh_target_unit():
-	if target_units.empty(): target_unit = INF
+	if target_units.empty(): target_unit = null
 	for unit in target_units:
 		if _range(unit) < _range(target_unit):
 			target_unit = unit
@@ -73,5 +73,5 @@ func _direction(unit):
 	return (unit.position - position).normalized()
 
 func _range(unit):
-	if unit == INF: return INF
+	if unit == null: return INF
 	return position.distance_to(unit.position)
