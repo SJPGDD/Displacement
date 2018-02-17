@@ -20,17 +20,23 @@ export(int) var sight_range
 export(ControllerType) var controller
 export(Vector2) var direction
 
-var health = starting_health
+var health = 0
 var unit_state = UnitState.MARCHING
+var cooldown_timer = 0
 var target_units = []
 var target_unit
 
 func _ready():
 	_configure_colliders()
+	health = starting_health
 
 func _process(delta):
 	_refresh_target_unit()
 	_execute_AI_state_machine(delta)
+	_check_death()
+
+func take_damage(attack_damage, crit_chance):
+	health -= attack_damage * (1 + int(randf() < crit_chance))
 
 func _configure_colliders():
 	set_collision_layer_bit(controller, true)
@@ -46,19 +52,30 @@ func _refresh_target_unit():
 
 func _execute_AI_state_machine(delta):
 	match unit_state:
-		UnitState.MARCHING:
-			move_and_slide(direction * movement_speed)
-		UnitState.SEEKING:
-			move_and_slide(_direction(target_unit) * movement_speed)
-			var unit_range = _range(target_unit)
-			if unit_range > sight_range:
-				unit_state = UnitState.MARCHING
-			elif unit_range < attack_range:
-				unit_state = UnitState.ATTACKING
-		UnitState.ATTACKING:
-			pass
-		UnitState.DYING:
-			pass
+		UnitState.MARCHING: _march()
+		UnitState.SEEKING: _seek()
+		UnitState.ATTACKING: _attack(delta)
+		UnitState.DYING: queue_free()
+
+func _check_death():
+	if health <= 0: unit_state = UnitState.DYING
+
+func _march():
+	move_and_slide(direction * movement_speed)
+
+func _seek():
+	move_and_slide(_direction(target_unit) * movement_speed)
+	var unit_range = _range(target_unit)
+	if unit_range > sight_range:
+		unit_state = UnitState.MARCHING
+	elif unit_range < attack_range:
+		unit_state = UnitState.ATTACKING
+
+func _attack(delta):
+	cooldown_timer -= delta
+	if cooldown_timer <= 0:
+		cooldown_timer = attack_cooldown
+		target_unit.take_damage(attack_damage, crit_chance)
 
 func _spotted_opposing_unit(unit):
 	target_units.append(unit)
@@ -73,5 +90,5 @@ func _direction(unit):
 	return (unit.position - position).normalized()
 
 func _range(unit):
-	if unit == null: return INF
+	if unit == null or unit.unit_state == UnitState.DYING: return INF
 	return position.distance_to(unit.position)
