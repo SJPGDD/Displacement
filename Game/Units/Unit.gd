@@ -95,5 +95,5 @@ func _direction(unit):
 	return (unit.position - position).normalized()
 
 func _range(unit):
-	if unit == null or unit.unit_state == UnitState.DYING: return INF
+	if unit == null or !weakref(unit).get_ref(): return INF
 	return position.distance_to(unit.position)
