@@ -19,7 +19,7 @@ var target_scale = Vector2(1, 1)
 func _ready():
 	_reset_map()
 
-func _process(delta):
+func _physics_process(delta):
 	map.position = _lerp_vector(map.position, target_position, 0.2)
 	map.scale = _lerp_vector(map.scale, target_scale, 0.2)
 

@@ -4,7 +4,9 @@
 [ext_resource path="res://Game/Units/Unit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/World/Terrain/TerrainMovementController.gd" type="Script" id=3]
 
-[node name="Terrain" type="TileMap" index="0"]
+[node name="Terrain" type="TileMap" groups=[
+"Terrain",
+]]
 
 position = Vector2( 640, 335 )
 mode = 0
@@ -40,6 +42,7 @@ _sections_unfolded = [ "Transform" ]
 modulate = Color( 0, 0.179688, 1, 1 )
 position = Vector2( -138.604, 47.6131 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
+crit_chance = 0.5
 controller = 0
 direction = Vector2( 1, 0 )
 
@@ -48,6 +51,7 @@ direction = Vector2( 1, 0 )
 modulate = Color( 0, 0.179688, 1, 1 )
 position = Vector2( -78.7473, 155.083 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
+crit_chance = 0.5
 controller = 0
 direction = Vector2( 1, 0 )
 
@@ -56,6 +60,7 @@ direction = Vector2( 1, 0 )
 modulate = Color( 0, 0.179688, 1, 1 )
 position = Vector2( -56.9813, -68.0187 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
+crit_chance = 0.5
 controller = 0
 direction = Vector2( 1, 0 )
 
@@ -64,6 +69,7 @@ direction = Vector2( 1, 0 )
 modulate = Color( 0, 0.179688, 1, 1 )
 position = Vector2( -194.379, -51.6942 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
+crit_chance = 0.5
 controller = 0
 direction = Vector2( 1, 0 )
 
@@ -72,10 +78,13 @@ direction = Vector2( 1, 0 )
 modulate = Color( 0, 0.179688, 1, 1 )
 position = Vector2( -195.739, 155.083 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
+crit_chance = 0.5
 controller = 0
 direction = Vector2( 1, 0 )
 
 [node name="EnemyUnits" type="Node2D" parent="." index="2"]
+
+editor/display_folded = true
 
 [node name="Unit" parent="EnemyUnits" index="0" instance=ExtResource( 2 )]
 

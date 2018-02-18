@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const Laser = preload("res://Game/Units/Laser.tscn")
+
 enum ControllerType {
 	PLAYER, ENEMY
 }
@@ -52,7 +54,7 @@ func _refresh_target_unit():
 
 func _execute_AI_state_machine(delta):
 	match unit_state:
-		UnitState.MARCHING: _march()
+		UnitState.MARCHING: _march(delta)
 		UnitState.SEEKING: _seek()
 		UnitState.ATTACKING: _attack(delta)
 		UnitState.DYING: queue_free()
@@ -60,8 +62,10 @@ func _execute_AI_state_machine(delta):
 func _check_death():
 	if health <= 0: unit_state = UnitState.DYING
 
-func _march():
-	move_and_slide(direction * movement_speed)
+func _march(delta):
+	var collision = move_and_collide(direction * movement_speed * delta)
+	if collision != null and collision.collider.is_in_group("Terrain"):
+		direction = direction.reflect(collision.normal.rotated(PI / 2)).rotated(rand_range(-0.5, 0.5))
 
 func _seek():
 	move_and_slide(_direction(target_unit) * movement_speed)
@@ -76,6 +80,7 @@ func _attack(delta):
 	if cooldown_timer <= 0:
 		cooldown_timer = attack_cooldown
 		target_unit.take_damage(attack_damage, crit_chance)
+		add_child(Laser.instance().setup(position, target_unit.position))
 
 func _spotted_opposing_unit(unit):
 	target_units.append(unit)
