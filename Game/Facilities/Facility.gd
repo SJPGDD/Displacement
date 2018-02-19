@@ -4,6 +4,9 @@ export(PoolStringArray) var spawns_units
 
 onready var spawnable_units = _load_units()
 
+func _ready():
+	_register_with_selector()
+
 func _process(delta):
 	if pressed and delta - int(delta) < 0.05:
 		var unit = spawnable_units[0].instance()
@@ -19,3 +22,6 @@ func _load_units():
 	for unit in spawns_units:
 		units.append(load("res://Game/Units/%s.tscn" % unit))
 	return units
+
+func _register_with_selector():
+	connect("button_down", $"../../SelectionController", "select_facility", [self])

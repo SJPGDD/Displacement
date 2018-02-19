@@ -1,15 +1,40 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game/World/Terrain/Tiles/TerrainTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://Game/Facilities/Facility.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/Units/Unit.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Game/World/Terrain/TerrainMovementController.gd" type="Script" id=4]
+[ext_resource path="res://Game/World/Terrain/SelectionController.gd" type="Script" id=5]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+render_priority = 0
+blend_mode = 1
+light_mode = 0
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "Breathe"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:invert_border")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( -4, -4, -4 ),
+"update": 0,
+"values": [ 5.0, 2.0, 5.0 ]
+}
 
 [node name="Terrain" type="TileMap" index="0" groups=[
 "Terrain",
 ]]
 
-position = Vector2( 640, 335 )
 mode = 0
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 50, 50 )
@@ -26,7 +51,7 @@ collision_layer = 4
 collision_mask = 3
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( -262152, 2, 0, -262151, 2, 0, -262150, 2, 0, -262149, 2, 0, -262148, 2, 0, -262147, 2, 0, -262146, 2, 0, -262145, 2, 0, -327680, 2, 0, -327679, 2, 0, -327678, 2, 0, -327677, 2, 0, -327676, 2, 0, -327675, 2, 0, -327674, 2, 0, -327673, 2, 0, -196616, 2, 0, -196615, 1, 0, -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 1, 0, -262137, 2, 0, -131080, 2, 0, -131079, 1, 0, -131078, 0, 0, -131077, 0, 0, -131076, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 1, 0, -196601, 2, 0, -65544, 2, 0, -65543, 1, 0, -65542, 0, 0, -65541, 0, 0, -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 1, 0, -131065, 2, 0, -8, 2, 0, -7, 1, 0, -6, 0, 0, -5, 0, 0, -4, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 1, 0, -65529, 2, 0, 65528, 2, 0, 65529, 1, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 1, 0, 7, 2, 0, 131064, 2, 0, 131065, 1, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 1, 0, 65543, 2, 0, 196600, 2, 0, 196601, 1, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 131079, 2, 0, 262136, 2, 0, 262137, 1, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 1, 0, 196615, 2, 0, 327672, 2, 0, 327673, 1, 0, 327674, 0, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 1, 0, 262151, 2, 0, 393208, 2, 0, 393209, 2, 0, 393210, 2, 0, 393211, 2, 0, 393212, 2, 0, 393213, 2, 0, 393214, 2, 0, 393215, 2, 0, 327680, 2, 0, 327681, 2, 0, 327682, 2, 0, 327683, 2, 0, 327684, 2, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0 )
+tile_data = PoolIntArray( -262152, 2, 0, -262151, 2, 0, -262150, 2, 0, -262149, 2, 0, -262148, 2, 0, -262147, 2, 0, -262146, 2, 0, -262145, 2, 0, -327680, 2, 0, -327679, 2, 0, -327678, 2, 0, -327677, 2, 0, -327676, 2, 0, -327675, 2, 0, -327674, 2, 0, -327673, 2, 0, -196616, 2, 0, -196615, 1, 0, -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 2, 0, -131080, 2, 0, -131079, 1, 0, -131078, 0, 0, -131077, 0, 0, -131076, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 2, 0, -65544, 2, 0, -65543, 1, 0, -65542, 0, 0, -65541, 0, 0, -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 2, 0, -8, 2, 0, -7, 1, 0, -6, 0, 0, -5, 0, 0, -4, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 2, 0, 65528, 2, 0, 65529, 1, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 2, 0, 131064, 2, 0, 131065, 1, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 2, 0, 196600, 2, 0, 196601, 1, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 2, 0, 262136, 2, 0, 262137, 1, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 2, 0, 327672, 2, 0, 327673, 1, 0, 327674, 0, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 2, 0, 393208, 2, 0, 393209, 2, 0, 393210, 2, 0, 393211, 2, 0, 393212, 2, 0, 393213, 2, 0, 393214, 2, 0, 393215, 2, 0, 327680, 2, 0, 327681, 2, 0, 327682, 2, 0, 327683, 2, 0, 327684, 2, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 __meta__ = {
 "_edit_lock_": true
@@ -34,6 +59,7 @@ __meta__ = {
 
 [node name="Facilities" type="Node2D" parent="." index="0"]
 
+editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="Facility" parent="Facilities" index="0" instance=ExtResource( 2 )]
@@ -45,11 +71,22 @@ margin_bottom = -100.0
 _sections_unfolded = [ "Focus", "Hint", "Mouse", "Rect", "Textures" ]
 spawns_units = PoolStringArray( "Unit" )
 
+[node name="Facility2" parent="Facilities" index="1" instance=ExtResource( 2 )]
+
+margin_left = -350.0
+margin_top = -50.0
+margin_right = -300.0
+margin_bottom = 0.0
+_sections_unfolded = [ "Focus", "Hint", "Mouse", "Rect", "Textures" ]
+spawns_units = PoolStringArray( "Unit" )
+
 [node name="PlayerUnits" type="Node2D" parent="." index="1"]
 
 _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
 [node name="EnemyUnits" type="Node2D" parent="." index="2"]
+
+editor/display_folded = true
 
 [node name="Unit" parent="EnemyUnits" index="0" instance=ExtResource( 3 )]
 
@@ -93,13 +130,14 @@ direction = Vector2( -1, 0 )
 
 [node name="MovementController" type="TextureButton" parent="." index="3"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -300.0
 margin_top = -200.0
-margin_right = 300.0
+margin_right = 350.0
 margin_bottom = 250.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
@@ -113,6 +151,63 @@ shortcut = null
 group = null
 script = ExtResource( 4 )
 _sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Margin", "Mouse", "Rect", "Theme", "Visibility", "custom_styles" ]
+
+[node name="Camera" type="Camera2D" parent="MovementController" index="0"]
+
+position = Vector2( 300, 200 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Drag Margin", "Limit", "Smoothing", "Transform" ]
+
+[node name="SelectionController" type="Polygon2D" parent="." index="4"]
+
+visible = false
+material = SubResource( 1 )
+z_index = 2
+polygon = PoolVector2Array( 0, 0, 50, 0, 50, 50, 0, 50 )
+uv = PoolVector2Array(  )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = PoolColorArray( 0.414063, 0.862671, 1, 1, 0, 0, 0, 1, 0.411765, 0.858824, 1, 1, 0.411765, 0.858824, 1, 1, 0.411765, 0.858824, 1, 1, 0, 0, 0, 1, 0.411765, 0.858824, 1, 1, 0, 0, 0, 1, 0.411765, 0.858824, 1, 1, 0.411765, 0.858824, 1, 1, 0, 0, 0, 1, 0.411765, 0.858824, 1, 1 )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = true
+invert_border = 4.90329
+script = ExtResource( 5 )
+_sections_unfolded = [ "Invert", "Material", "Transform", "Z Index" ]
+
+[node name="Breathing" type="AnimationPlayer" parent="SelectionController" index="0"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/Breathe = SubResource( 2 )
+blend_times = [  ]
 
 [connection signal="button_down" from="MovementController" to="MovementController" method="_begin_pan"]
 
