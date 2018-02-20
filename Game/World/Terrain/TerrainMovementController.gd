@@ -56,7 +56,9 @@ func _input(event):
 				if event.doubleclick:
 					_reset_map()
 				elif event.pressed:
-					$"../SelectionController".select_tile_at_mouse($"..".get_local_mouse_position())
+					var mp = $"..".get_local_mouse_position()
+					if $"../Facilities".at(mp) == null:
+						$"../SelectionController".select_tile_at_mouse(mp)
 		"InputEventMouseMotion":
 			if is_panning:
 				_pan_map(event.relative)

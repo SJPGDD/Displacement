@@ -30,6 +30,7 @@ var target_unit
 
 func _ready():
 	_configure_colliders()
+	_configure_appearance()
 	health = starting_health
 
 func _process(delta):
@@ -45,6 +46,9 @@ func _configure_colliders():
 	set_collision_mask_bit(controller, false)
 	$SightRadius.set_collision_mask_bit(controller, false)
 	sight_range = $SightRadius/Collider.shape.radius
+
+func _configure_appearance():
+	modulate = Color(controller, 1 - controller, 1)
 
 func _refresh_target_unit():
 	if target_units.empty(): target_unit = null

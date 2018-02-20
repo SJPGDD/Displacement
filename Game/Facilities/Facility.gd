@@ -17,6 +17,9 @@ func _process(delta):
 		
 		$"../../PlayerUnits".add_child(unit)
 
+func get_rect():
+	return Rect2(rect_position, rect_size * rect_scale)
+
 func _load_units():
 	var units = []
 	for unit in spawns_units:

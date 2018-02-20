@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Game/World/Terrain/Tiles/TerrainTileSet.tres" type="TileSet" id=1]
-[ext_resource path="res://Game/Facilities/Facility.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Game/Units/Unit.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Game/World/Terrain/TerrainMovementController.gd" type="Script" id=4]
-[ext_resource path="res://Game/World/Terrain/SelectionController.gd" type="Script" id=5]
+[ext_resource path="res://Game/World/Terrain/FacilitiesController.gd" type="Script" id=2]
+[ext_resource path="res://Game/Facilities/Facility.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Game/World/Terrain/EnemyUnitsSpawner.gd" type="Script" id=4]
+[ext_resource path="res://Game/World/Terrain/TerrainMovementController.gd" type="Script" id=5]
+[ext_resource path="res://Game/World/Terrain/SelectionController.gd" type="Script" id=6]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -31,7 +32,7 @@ tracks/0/keys = {
 "values": [ 5.0, 2.0, 5.0 ]
 }
 
-[node name="Terrain" type="TileMap" index="0" groups=[
+[node name="Terrain" type="TileMap" groups=[
 "Terrain",
 ]]
 
@@ -59,25 +60,23 @@ __meta__ = {
 
 [node name="Facilities" type="Node2D" parent="." index="0"]
 
-editor/display_folded = true
+script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Facility" parent="Facilities" index="0" instance=ExtResource( 2 )]
+[node name="Facility" parent="Facilities" index="0" instance=ExtResource( 3 )]
 
 margin_left = -350.0
 margin_top = -150.0
 margin_right = -300.0
 margin_bottom = -100.0
-_sections_unfolded = [ "Focus", "Hint", "Mouse", "Rect", "Textures" ]
 spawns_units = PoolStringArray( "Unit" )
 
-[node name="Facility2" parent="Facilities" index="1" instance=ExtResource( 2 )]
+[node name="Facility2" parent="Facilities" index="1" instance=ExtResource( 3 )]
 
 margin_left = -350.0
 margin_top = -50.0
 margin_right = -300.0
 margin_bottom = 0.0
-_sections_unfolded = [ "Focus", "Hint", "Mouse", "Rect", "Textures" ]
 spawns_units = PoolStringArray( "Unit" )
 
 [node name="PlayerUnits" type="Node2D" parent="." index="1"]
@@ -86,47 +85,9 @@ _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
 [node name="EnemyUnits" type="Node2D" parent="." index="2"]
 
-editor/display_folded = true
-
-[node name="Unit" parent="EnemyUnits" index="0" instance=ExtResource( 3 )]
-
-modulate = Color( 0.0428467, 0.421875, 0, 1 )
-position = Vector2( 138.604, 185.703 )
-_sections_unfolded = [ "Collision", "Transform", "collision" ]
-controller = 1
-direction = Vector2( -1, 0 )
-
-[node name="Unit2" parent="EnemyUnits" index="1" instance=ExtResource( 3 )]
-
-modulate = Color( 0.0428467, 0.421875, 0, 1 )
-position = Vector2( 244.713, 177.541 )
-_sections_unfolded = [ "Collision", "Transform", "Z Index", "collision" ]
-controller = 1
-direction = Vector2( -1, 0 )
-
-[node name="Unit3" parent="EnemyUnits" index="2" instance=ExtResource( 3 )]
-
-modulate = Color( 0.0428467, 0.421875, 0, 1 )
-position = Vector2( 86.9095, 27.9002 )
-_sections_unfolded = [ "Collision", "Transform", "collision" ]
-controller = 1
-direction = Vector2( -1, 0 )
-
-[node name="Unit4" parent="EnemyUnits" index="3" instance=ExtResource( 3 )]
-
-modulate = Color( 0.0428467, 0.421875, 0, 1 )
-position = Vector2( 207.983, -7.46954 )
-_sections_unfolded = [ "Collision", "Transform", "collision" ]
-controller = 1
-direction = Vector2( -1, 0 )
-
-[node name="Unit5" parent="EnemyUnits" index="4" instance=ExtResource( 3 )]
-
-modulate = Color( 0.0428467, 0.421875, 0, 1 )
-position = Vector2( 116.838, -95.8939 )
-_sections_unfolded = [ "Collision", "Transform", "collision" ]
-controller = 1
-direction = Vector2( -1, 0 )
+script = ExtResource( 4 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+spawns_units = PoolStringArray( "Unit" )
 
 [node name="MovementController" type="TextureButton" parent="." index="3"]
 
@@ -149,7 +110,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 _sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Margin", "Mouse", "Rect", "Theme", "Visibility", "custom_styles" ]
 
 [node name="Camera" type="Camera2D" parent="MovementController" index="0"]
@@ -196,7 +157,7 @@ texture_scale = Vector2( 1, 1 )
 texture_rotation_degrees = 0.0
 invert_enable = true
 invert_border = 4.90329
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 _sections_unfolded = [ "Invert", "Material", "Transform", "Z Index" ]
 
 [node name="Breathing" type="AnimationPlayer" parent="SelectionController" index="0"]

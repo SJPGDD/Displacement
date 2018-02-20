@@ -1,6 +1,25 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="UI" type="Control"]
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Label
+
+func _process(delta):
+	text = \"FPS: \" + str(Engine.get_frames_per_second())
+	"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Label
+
+onready var player_units = $\"/root/Game/World/Terrain/PlayerUnits\"
+onready var enemy_units = $\"/root/Game/World/Terrain/EnemyUnits\"
+
+func _process(delta):
+	text = \"Units: \" + str(player_units.get_child_count() + enemy_units.get_child_count())
+	"
+
+[node name="UI" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -43,5 +62,45 @@ texture_rotation_degrees = 0.0
 invert_enable = false
 invert_border = 100.0
 _sections_unfolded = [ "Transform" ]
+
+[node name="Framerate" type="Label" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 14.0
+margin_top = 58.0
+margin_right = 54.0
+margin_bottom = 72.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = SubResource( 1 )
+
+[node name="Unit Count" type="Label" parent="." index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 13.0
+margin_top = 79.0
+margin_right = 53.0
+margin_bottom = 93.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = SubResource( 2 )
 
 
