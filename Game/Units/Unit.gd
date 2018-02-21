@@ -24,6 +24,8 @@ export(int) var sight_range
 export(ControllerType) var controller
 export(Vector2) var direction
 
+onready var extras = $"../../Extras"
+
 var health = 0
 var unit_state = UnitState.MARCHING
 var cooldown_timer = 0
@@ -36,9 +38,10 @@ func _ready():
 	health = starting_health
 
 func _process(delta):
-	_refresh_target_unit()
-	_execute_AI_state_machine(delta)
-	_check_death()
+	if unit_state != UnitState.DYING:
+		_refresh_target_unit()
+		_execute_AI_state_machine(delta)
+		_check_death()
 
 func take_damage(attack_damage, crit_chance):
 	health -= attack_damage * (1 + int(randf() < crit_chance))
@@ -60,16 +63,20 @@ func _refresh_target_unit():
 	for unit in target_units:
 		if _range(unit) < _range(target_unit):
 			target_unit = unit
+	if _invalid_target(target_unit):
+		unit_state = UnitState.MARCHING
 
 func _execute_AI_state_machine(delta):
 	match unit_state:
 		UnitState.MARCHING: _march(delta)
 		UnitState.SEEKING: _seek()
 		UnitState.ATTACKING: _attack(delta)
-		UnitState.DYING: queue_free()
+		UnitState.DYING: pass
 
 func _check_death():
-	if health <= 0: unit_state = UnitState.DYING
+	if health <= 0 and unit_state != UnitState.DYING: 
+		unit_state = UnitState.DYING
+		$DeathAnimation.play("Death")
 
 func _march(delta):
 	var collision = move_and_collide(direction * movement_speed * delta)
@@ -89,7 +96,7 @@ func _attack(delta):
 	if cooldown_timer <= 0:
 		cooldown_timer = attack_cooldown
 		target_unit.take_damage(attack_damage, crit_chance)
-		add_child(Laser.instance().setup(position, target_unit.position))
+		extras.add_child(Laser.instance().setup(controller, position, target_unit.position))
 
 func _spotted_opposing_unit(unit):
 	target_units.append(unit)
@@ -104,5 +111,8 @@ func _direction(unit):
 	return (unit.position - position).normalized()
 
 func _range(unit):
-	if unit == null or !weakref(unit).get_ref(): return INF
+	if _invalid_target(unit): return INF
 	return position.distance_to(unit.position)
+
+func _invalid_target(unit):
+	return unit == null or !weakref(unit).get_ref() or !unit.is_in_group("Unit") or unit.unit_state == UnitState.DYING

@@ -7,14 +7,16 @@ var time_until_spawn
 var num_to_spawn
 var controller
 var direction
+var parent
 
 func _process(delta):
 	_run_spawner_timer(delta)
 
-func _init(unit_type, controller, direction):
+func _init(unit_type, controller, parent, direction):
 	self.unit_type = unit_type
 	_parse_template_unit()
 	self.controller = controller
+	self.parent = parent
 	self.direction = direction
 
 func _run_spawner_timer(delta):
@@ -30,7 +32,7 @@ func _spawn():
 	unit.position = position
 	unit.controller = controller
 	unit.direction = direction
-	get_parent().add_child(unit)
+	parent.add_child(unit)
 	num_to_spawn -= 1
 
 func _parse_template_unit():

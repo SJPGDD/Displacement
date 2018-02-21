@@ -79,17 +79,19 @@ margin_right = -450.0
 margin_bottom = 0.0
 spawns_units = PoolStringArray( "Unit" )
 
-[node name="PlayerUnits" type="Node2D" parent="." index="1"]
+[node name="Extras" type="Node2D" parent="." index="1"]
+
+[node name="PlayerUnits" type="Node2D" parent="." index="2"]
 
 _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
-[node name="EnemyUnits" type="Node2D" parent="." index="2"]
+[node name="EnemyUnits" type="Node2D" parent="." index="3"]
 
 script = ExtResource( 4 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 spawns_units = PoolStringArray( "Unit" )
 
-[node name="MovementController" type="TextureButton" parent="." index="3"]
+[node name="MovementController" type="TextureButton" parent="." index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -139,7 +141,7 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin", "Limit", "Smoothing", "Transform" ]
 
-[node name="SelectionController" type="Polygon2D" parent="." index="4"]
+[node name="SelectionController" type="Polygon2D" parent="." index="5"]
 
 visible = false
 material = SubResource( 1 )
