@@ -3,7 +3,7 @@ extends TextureButton
 const ZOOM_FACTOR = 0.1
 const MIN_ZOOM = 0.5
 const MAX_ZOOM = 2.0
-const MAP_START_POSITION = Vector2(300, 275)
+const MAP_START_POSITION = Vector2(450, 275)
 
 enum Zoom {
 	IN = 1,

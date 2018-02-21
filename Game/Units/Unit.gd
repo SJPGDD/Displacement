@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 const Laser = preload("res://Game/Units/Laser.tscn")
+const PlayerUnitColor = preload("res://Game/Units/PlayerUnitColor.tres")
+const EnemyUnitColor = preload("res://Game/Units/EnemyUnitColor.tres")
 
 enum ControllerType {
 	PLAYER, ENEMY
@@ -48,7 +50,10 @@ func _configure_colliders():
 	sight_range = $SightRadius/Collider.shape.radius
 
 func _configure_appearance():
-	modulate = Color(controller, 1 - controller, 1)
+	if controller == ControllerType.PLAYER:
+		$Texture.material = PlayerUnitColor
+	else:
+		$Texture.material = EnemyUnitColor
 
 func _refresh_target_unit():
 	if target_units.empty(): target_unit = null

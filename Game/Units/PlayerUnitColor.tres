@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+
+code = "shader_type canvas_item;
+
+bool should_team_color(vec4 source) {
+	return source.r == source.g && source.g == source.b;
+}
+
+void fragment() {
+	vec4 tex_color = texture(TEXTURE, UV);
+	if(should_team_color(tex_color)) {
+		tex_color *= vec4(0.0, 0.0, 1.0, 1);
+	}
+	COLOR = tex_color;
+}"
+_sections_unfolded = [ "Resource" ]
+
+[resource]
+
+render_priority = 0
+shader = SubResource( 1 )
+_sections_unfolded = [ "shader_param" ]
+
