@@ -9,10 +9,15 @@ var distance
 var time
 var curve_strength
 
+func _ready():
+	var velocity = _get_velocity()
+	position += velocity.normalized() * 10
+	rotation = velocity.angle() - PI
+
 func _process(delta):
 	time += delta
 	if time < TRAVEL_TIME:
-		var velocity = Vector2(_dx_dt(), _dy_dt()).rotated(direction) * delta
+		var velocity = _get_velocity() * delta
 		position += velocity
 		rotation = velocity.angle() - PI
 	else: 
@@ -33,6 +38,9 @@ func setup(controller, from, to):
 	time = 0
 	curve_strength = rand_range(2000, -2000)
 	return self
+
+func _get_velocity():
+	return Vector2(_dx_dt(), _dy_dt()).rotated(direction)
 
 func _dx_dt():
 	return distance / TRAVEL_TIME

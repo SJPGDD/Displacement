@@ -1,6 +1,6 @@
 [gd_scene format=2]
 
-[node name="Background" type="Sprite" index="0"]
+[node name="Background" type="Sprite"]
 
 [node name="Clouds" type="Particles2D" parent="." index="0"]
 

@@ -19,7 +19,7 @@ func _process(delta):
 	text = \"Units: \" + str(player_units.get_child_count() + enemy_units.get_child_count())
 	"
 
-[node name="UI" type="Control" index="0"]
+[node name="UI" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0

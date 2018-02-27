@@ -74,7 +74,7 @@ func _execute_AI_state_machine(delta):
 		UnitState.DYING: pass
 
 func _check_death():
-	if health <= 0 and unit_state != UnitState.DYING: 
+	if health <= 0 and unit_state != UnitState.DYING:
 		unit_state = UnitState.DYING
 		$DeathAnimation.play("Death")
 
@@ -99,13 +99,15 @@ func _attack(delta):
 		extras.add_child(Laser.instance().setup(controller, position, target_unit.position))
 
 func _spotted_opposing_unit(unit):
-	target_units.append(unit)
-	unit_state = UnitState.SEEKING
+	if unit_state != UnitState.DYING:
+		target_units.append(unit)
+		unit_state = UnitState.SEEKING
 
 func _unspotted_opposing_unit(unit):
-	target_units.remove(target_units.find(unit))
-	if target_units.size() == 0:
-		unit_state = UnitState.MARCHING
+	if unit_state != UnitState.DYING:
+		target_units.remove(target_units.find(unit))
+		if target_units.size() == 0:
+			unit_state = UnitState.MARCHING
 
 func _direction(unit):
 	return (unit.position - position).normalized()
