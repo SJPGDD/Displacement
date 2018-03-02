@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Game/Units/Unit.gd" type="Script" id=1]
 [ext_resource path="res://Game/Units/PlayerUnitColor.tres" type="Material" id=2]
@@ -9,12 +9,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 5, 5 )
 
-[sub_resource type="CircleShape2D" id=2]
-
-custom_solver_bias = 0.0
-radius = 250.0
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Death"
 length = 0.2
@@ -79,36 +74,14 @@ _sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Visibility"
 
 shape = SubResource( 1 )
 
-[node name="SightRadius" type="Area2D" parent="." index="2"]
-
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-collision_layer = 8
-collision_mask = 3
-audio_bus_override = false
-audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
-
-[node name="Collider" type="CollisionShape2D" parent="SightRadius" index="0"]
-
-shape = SubResource( 2 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="DeathAnimation" type="AnimationPlayer" parent="." index="3"]
+[node name="DeathAnimation" type="AnimationPlayer" parent="." index="2"]
 
 root_node = NodePath("..")
 autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Death = SubResource( 3 )
+anims/Death = SubResource( 2 )
 blend_times = [  ]
-
-[connection signal="body_entered" from="SightRadius" to="." method="_spotted_opposing_unit"]
-
-[connection signal="body_exited" from="SightRadius" to="." method="_unspotted_opposing_unit"]
 
 

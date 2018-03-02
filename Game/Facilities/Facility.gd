@@ -14,7 +14,7 @@ func _process(delta):
 		unit.direction = Vector2(1, 0).rotated(rand_range(-0.5, 0.5))
 		unit.controller = 0
 		
-		$"../../PlayerUnits".add_child(unit)
+		$"../../UnitController/PlayerUnits".add_child(unit)
 
 func get_rect():
 	return Rect2(rect_position, rect_size * rect_scale)

@@ -24,7 +24,7 @@ export(int) var sight_range
 export(ControllerType) var controller
 export(Vector2) var direction
 
-onready var extras = $"../../Extras"
+onready var projectiles = $"../../../Projectiles"
 
 var health = 0
 var unit_state = UnitState.MARCHING
@@ -37,20 +37,13 @@ func _ready():
 	_configure_appearance()
 	health = starting_health
 
-func _process(delta):
-	if unit_state != UnitState.DYING:
-		_refresh_target_unit()
-		_execute_AI_state_machine(delta)
-		_check_death()
-
 func take_damage(attack_damage, crit_chance):
 	health -= attack_damage * (1 + int(randf() < crit_chance))
+	_check_death()
 
 func _configure_colliders():
 	set_collision_layer_bit(controller, true)
 	set_collision_mask_bit(controller, false)
-	$SightRadius.set_collision_mask_bit(controller, false)
-	sight_range = $SightRadius/Collider.shape.radius
 
 func _configure_appearance():
 	if controller == ControllerType.PLAYER:
@@ -58,56 +51,31 @@ func _configure_appearance():
 	else:
 		$Texture.material = EnemyUnitColor
 
-func _refresh_target_unit():
-	if target_units.empty(): target_unit = null
-	for unit in target_units:
-		if _range(unit) < _range(target_unit):
-			target_unit = unit
-	if _invalid_target(target_unit):
-		unit_state = UnitState.MARCHING
-
-func _execute_AI_state_machine(delta):
-	match unit_state:
-		UnitState.MARCHING: _march(delta)
-		UnitState.SEEKING: _seek()
-		UnitState.ATTACKING: _attack(delta)
-		UnitState.DYING: pass
-
 func _check_death():
 	if health <= 0 and unit_state != UnitState.DYING:
 		unit_state = UnitState.DYING
-		$DeathAnimation.play("Death")
 
-func _march(delta):
+func march(delta):
 	var collision = move_and_collide(direction * movement_speed * delta)
 	if collision != null and collision.collider.is_in_group("Terrain"):
 		direction = direction.reflect(collision.normal.rotated(PI / 2)).rotated(rand_range(-0.5, 0.5))
 
-func _seek():
+func seek():
 	move_and_slide(_direction(target_unit) * movement_speed)
-	var unit_range = _range(target_unit)
-	if unit_range > sight_range:
-		unit_state = UnitState.MARCHING
-	elif unit_range < attack_range:
-		unit_state = UnitState.ATTACKING
 
-func _attack(delta):
+func attack(delta):
+	if _invalid_target(target_unit):
+		target_unit = null; unit_state = UnitState.MARCHING; return
+	
 	cooldown_timer -= delta
 	if cooldown_timer <= 0:
 		cooldown_timer = attack_cooldown
 		target_unit.take_damage(attack_damage, crit_chance)
-		extras.add_child(Laser.instance().setup(controller, position, target_unit.position))
+		projectiles.add_child(Laser.instance().setup(controller, position, target_unit.position))
 
-func _spotted_opposing_unit(unit):
-	if unit_state != UnitState.DYING:
-		target_units.append(unit)
-		unit_state = UnitState.SEEKING
-
-func _unspotted_opposing_unit(unit):
-	if unit_state != UnitState.DYING:
-		target_units.remove(target_units.find(unit))
-		if target_units.size() == 0:
-			unit_state = UnitState.MARCHING
+func die():
+	if $DeathAnimation.current_animation == "":
+		$DeathAnimation.play("Death")
 
 func _direction(unit):
 	return (unit.position - position).normalized()

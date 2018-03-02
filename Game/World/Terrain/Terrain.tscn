@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Game/World/Terrain/Tiles/TerrainTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://Game/World/Terrain/FacilitiesController.gd" type="Script" id=2]
 [ext_resource path="res://Game/Facilities/Facility.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Game/World/Terrain/EnemyUnitsSpawner.gd" type="Script" id=4]
-[ext_resource path="res://Game/World/Terrain/TerrainMovementController.gd" type="Script" id=5]
-[ext_resource path="res://Game/World/Terrain/SelectionController.gd" type="Script" id=6]
+[ext_resource path="res://Game/World/Terrain/UnitController.gd" type="Script" id=4]
+[ext_resource path="res://Game/World/Terrain/EnemyUnitsSpawner.gd" type="Script" id=5]
+[ext_resource path="res://Game/World/Terrain/TerrainMovementController.gd" type="Script" id=6]
+[ext_resource path="res://Game/World/Terrain/SelectionController.gd" type="Script" id=7]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -32,7 +33,7 @@ tracks/0/keys = {
 "values": [ 5.0, 2.0, 5.0 ]
 }
 
-[node name="Terrain" type="TileMap" index="0" groups=[
+[node name="Terrain" type="TileMap" groups=[
 "Terrain",
 ]]
 
@@ -79,20 +80,27 @@ margin_right = -450.0
 margin_bottom = 0.0
 spawns_units = PoolStringArray( "Unit" )
 
-[node name="Extras" type="Node2D" parent="." index="1"]
+[node name="Spawners" type="Node2D" parent="." index="1"]
 
-[node name="PlayerUnits" type="Node2D" parent="." index="2"]
+[node name="UnitController" type="Node2D" parent="." index="2"]
+
+script = ExtResource( 4 )
+
+[node name="PlayerUnits" type="Node2D" parent="UnitController" index="0"]
 
 _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
-[node name="EnemyUnits" type="Node2D" parent="." index="3"]
+[node name="EnemyUnits" type="Node2D" parent="UnitController" index="1"]
 
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 spawns_units = PoolStringArray( "Unit" )
 
+[node name="Projectiles" type="Node2D" parent="." index="3"]
+
 [node name="MovementController" type="TextureButton" parent="." index="4"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -111,7 +119,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 _sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Margin", "Mouse", "Rect", "Theme", "Visibility", "custom_styles" ]
 
 [node name="Camera" type="Camera2D" parent="MovementController" index="0"]
@@ -143,6 +151,7 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Smoothing", "Transform" ]
 
 [node name="SelectionController" type="Polygon2D" parent="." index="5"]
 
+editor/display_folded = true
 visible = false
 material = SubResource( 1 )
 z_index = 2
@@ -158,7 +167,7 @@ texture_scale = Vector2( 1, 1 )
 texture_rotation_degrees = 0.0
 invert_enable = true
 invert_border = 4.90329
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "Invert", "Material", "Transform", "Z Index" ]
 
 [node name="Breathing" type="AnimationPlayer" parent="SelectionController" index="0"]

@@ -12,8 +12,8 @@ func _process(delta):
 
 script/source = "extends Label
 
-onready var player_units = $\"/root/Game/World/Terrain/PlayerUnits\"
-onready var enemy_units = $\"/root/Game/World/Terrain/EnemyUnits\"
+onready var player_units = $\"/root/Game/World/Terrain/UnitController/PlayerUnits\"
+onready var enemy_units = $\"/root/Game/World/Terrain/UnitController/EnemyUnits\"
 
 func _process(delta):
 	text = \"Units: \" + str(player_units.get_child_count() + enemy_units.get_child_count())
