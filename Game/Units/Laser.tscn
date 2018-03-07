@@ -61,7 +61,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angle", "Color", "Emission Shape", "Flags", "Gravity", "Initial Velocity", "Scale", "Spread", "Trail" ]
 
-[node name="Laser" type="Particles2D"]
+[node name="Laser" type="Particles2D" index="0"]
 
 material = SubResource( 1 )
 emitting = true
@@ -75,7 +75,7 @@ randomness = 0.0
 fixed_fps = 60
 fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
-local_coords = false
+local_coords = true
 draw_order = 0
 process_material = SubResource( 4 )
 texture = null
