@@ -3,6 +3,7 @@ extends KinematicBody2D
 const Laser = preload("res://Game/Units/Laser.tscn")
 const PlayerUnitColor = preload("res://Game/Units/PlayerUnitColor.tres")
 const EnemyUnitColor = preload("res://Game/Units/EnemyUnitColor.tres")
+const UnitExplosion = preload("res://Game/Units/UnitExplosion.tscn")
 
 enum ControllerType {
 	PLAYER, ENEMY
@@ -76,6 +77,7 @@ func attack(delta):
 func die():
 	if $DeathAnimation.current_animation == "":
 		$DeathAnimation.play("Death")
+		projectiles.add_child(UnitExplosion.instance().setup(self.controller, position))
 
 func _direction(unit):
 	return (unit.position - position).normalized()
