@@ -54,11 +54,19 @@ func _unit_update_phase(delta):
 
 func _execute_unit_update(units, delta):
 	for u in units:
+		if u.controller == u.ControllerType.PLAYER && u.unit_state != u.UnitState.DYING:
+			if u.rally_point.visible:
+				u.unit_state = u.UnitState.RALLYING
+			elif u.unit_state == u.UnitState.RALLYING:
+				u.unit_state = u.UnitState.MARCHING
 		match u.unit_state:
 			u.UnitState.MARCHING: u.march(delta)
 			u.UnitState.SEEKING: u.seek()
 			u.UnitState.ATTACKING: u.attack(delta)
 			u.UnitState.DYING: u.die()
+			u.UnitState.RALLYING: 
+				if !u.rally(delta) && u.target_unit != null:
+					u.attack(delta)
 
 func _get_update_phase():
 	var temp = update_phase

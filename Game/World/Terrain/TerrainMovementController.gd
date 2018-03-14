@@ -12,6 +12,7 @@ enum Zoom {
 
 onready var map = get_parent()
 onready var cam = $Camera
+onready var rally = $"../RallyPoint"
 
 var is_panning = false
 var target_position = MAP_START_POSITION
@@ -56,9 +57,15 @@ func _input(event):
 				if event.doubleclick:
 					_reset_map()
 				elif event.pressed:
-					var mp = $"..".get_local_mouse_position()
+					var mp = map.get_local_mouse_position()
 					if $"../Facilities".at(mp) == null:
 						$"../SelectionController".select_tile_at_mouse(mp)
+			elif event.button_index == BUTTON_RIGHT && event.pressed:
+				if rally.visible && map.get_local_mouse_position().distance_to(rally.position) < 50:
+					rally.visible = false
+				else:
+					rally.position = map.get_local_mouse_position()
+					rally.visible = true
 		"InputEventMouseMotion":
 			if is_panning:
 				_pan_map(event.relative)

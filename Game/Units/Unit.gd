@@ -10,7 +10,7 @@ enum ControllerType {
 }
 
 enum UnitState {
-	MARCHING, SEEKING, ATTACKING, DYING
+	MARCHING, SEEKING, ATTACKING, DYING, RALLYING
 }
 
 export(int) var starting_health
@@ -26,6 +26,7 @@ export(ControllerType) var controller
 export(Vector2) var direction
 
 onready var projectiles = $"../../../Projectiles"
+onready var rally_point = $"../../../RallyPoint"
 
 var health = 0
 var unit_state = UnitState.MARCHING
@@ -60,6 +61,14 @@ func march(delta):
 	var collision = move_and_collide(direction * movement_speed * delta)
 	if collision != null and collision.collider.is_in_group("Terrain"):
 		direction = direction.reflect(collision.normal.rotated(PI / 2)).rotated(rand_range(-0.5, 0.5))
+
+func rally(delta):
+	if !rally_point.visible:
+		unit_state = UnitState.MARCHING
+	elif position.distance_to(rally_point.position) > 50:
+		move_and_slide((rally_point.position - position).normalized() * movement_speed)
+		return true
+	else: return false
 
 func seek():
 	move_and_slide(_direction(target_unit) * movement_speed)
