@@ -1,7 +1,7 @@
 extends Node2D
 
-var latency = 3
-var threshold = 30
+var latency = 5 #frame delay
+var threshold = 100 #start of using frame delay
 var update_phase = 0
 var player_units
 var enemy_units

@@ -7,10 +7,10 @@ path="res://.import/TerrainBorderTile.png-d265f5573edd738343f1925480929f6d.stex"
 [deps]
 
 source_file="res://Game/World/Terrain/Tiles/TerrainBorderTile.png"
-source_md5="afc97ab08e752f0d105a10b378ebd9e6"
+source_md5="c06a6817e6a3731c1340e8c884ee932f"
 
 dest_files=[ "res://.import/TerrainBorderTile.png-d265f5573edd738343f1925480929f6d.stex" ]
-dest_md5="eec2c8dd74d22c4288e48d809f83c42b"
+dest_md5="63d34d2a3894b6df2106c4a17c8eb9fa"
 
 [params]
 

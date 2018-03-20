@@ -11,7 +11,7 @@ bool should_team_color(vec4 source) {
 void fragment() {
 	vec4 tex_color = texture(TEXTURE, UV);
 	if(should_team_color(tex_color)) {
-		tex_color *= vec4(0.0, 0.0, 1.0, 1);
+		tex_color *= vec4(0.5, 1.0, 1.0, 1);
 	}
 	COLOR = tex_color;
 }"

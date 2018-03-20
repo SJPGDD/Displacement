@@ -2,12 +2,12 @@
 
 [ext_resource path="res://Game/Units/Unit.gd" type="Script" id=1]
 [ext_resource path="res://Game/Units/PlayerUnitColor.tres" type="Material" id=2]
-[ext_resource path="res://Game/Units/UnitTextures/Debug.png" type="Texture" id=3]
+[ext_resource path="res://Game/Units/UnitTextures/TacticalWisp.png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 5, 5 )
+radius = 5.0
 
 [sub_resource type="Animation" id=2]
 
@@ -42,7 +42,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Unit" type="KinematicBody2D" index="0" groups=[
+[node name="Unit" type="KinematicBody2D" groups=[
 "Unit",
 ]]
 
@@ -72,7 +72,7 @@ _sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Visibility"
 
 [node name="Collider" type="CollisionShape2D" parent="." index="1"]
 
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="DeathAnimation" type="AnimationPlayer" parent="." index="2"]
 

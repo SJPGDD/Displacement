@@ -7,10 +7,10 @@ path="res://.import/TerrainOpenTile.png-94362386cde3d78f4bd05a8201974575.stex"
 [deps]
 
 source_file="res://Game/World/Terrain/Tiles/TerrainOpenTile.png"
-source_md5="d85dbe67935d0ea9323ddcce5c52dcfe"
+source_md5="9d39ca0acedf0e0b67d03f489818b096"
 
 dest_files=[ "res://.import/TerrainOpenTile.png-94362386cde3d78f4bd05a8201974575.stex" ]
-dest_md5="8c7d0ccbe8a0a6addac67eceefb45a26"
+dest_md5="06d439892294da3ccbf314a6668b75c1"
 
 [params]
 

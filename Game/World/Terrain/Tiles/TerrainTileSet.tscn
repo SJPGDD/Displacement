@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Game/World/Terrain/Tiles/TerrainOpenTile.png" type="Texture" id=1]
 [ext_resource path="res://Game/World/Terrain/Tiles/TerrainBlockedTile.png" type="Texture" id=2]
 [ext_resource path="res://Game/World/Terrain/Tiles/TerrainBorderTile.png" type="Texture" id=3]
+[ext_resource path="res://Game/World/Terrain/Tiles/TerrainBorderTileCorner.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -55,6 +56,25 @@ bounce = 0.0
 _sections_unfolded = [ "Collision" ]
 
 [node name="Shape" type="CollisionShape2D" parent="TerrainBorderTile/Collider" index="0"]
+
+shape = SubResource( 2 )
+
+[node name="TerrainBorderTileCorner" type="Sprite" parent="." index="3"]
+
+texture = ExtResource( 4 )
+
+[node name="Collider" type="StaticBody2D" parent="TerrainBorderTileCorner" index="0"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 3
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="TerrainBorderTileCorner/Collider" index="0"]
 
 shape = SubResource( 2 )
 

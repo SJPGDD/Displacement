@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TerrainBlockedTile.png-7036fd4bc10ff535b9558df76ff5f7ea.stex"
+path="res://.import/TerrainBorderTileCorner.png-8adec47a7719ff36427047214e03fab0.stex"
 
 [deps]
 
-source_file="res://Game/World/Terrain/Tiles/TerrainBlockedTile.png"
-source_md5="c06a6817e6a3731c1340e8c884ee932f"
+source_file="res://Game/World/Terrain/Tiles/TerrainBorderTileCorner.png"
+source_md5="8b7c741d907c38442735283e66346eac"
 
-dest_files=[ "res://.import/TerrainBlockedTile.png-7036fd4bc10ff535b9558df76ff5f7ea.stex" ]
-dest_md5="63d34d2a3894b6df2106c4a17c8eb9fa"
+dest_files=[ "res://.import/TerrainBorderTileCorner.png-8adec47a7719ff36427047214e03fab0.stex" ]
+dest_md5="3917cb90db0f6fac87ea2072e4fc6d50"
 
 [params]
 
